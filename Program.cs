@@ -9,12 +9,12 @@ namespace Cacher
     class Program
     {
 
-        static Char[] delimiters = { ' ', ',', '.', ':', ';', '(', '(', '+', '-', '=', '[', ']', '/', '\\', '{', '}', '<', '>', '_', '\r', '\n', '\t', '~','!','?' };
+        static Char[] delimiters = { '\'','"', '`',' ', ',', '.', ':', ';', '(', '(', '+', '-', '=', '[', ']', '/', '\\', '{', '}', '<', '>', '_', '\r', '\n', '\t', '~','!','?' };
         static void Main(string[] args)
         {
             if(args.Length < 3)
             {
-                Console.WriteLine("Usage: cacher input_file_name check_file output_file_name");
+                Console.WriteLine("Usage: matcher input_file_name check_file output_file_name");
                 return;
             }
 
@@ -53,25 +53,28 @@ namespace Cacher
                 while (foundAt >= 0)
                 {
                     if(foundAt==0)
-                        foundAt = sBase.IndexOf(sub);
+                       foundAt = sBase.IndexOf(sub);
                     else
                         foundAt = sBase.IndexOf(sub, foundAt+1);
 
                     if (foundAt >= 0)
                     {
-                        if (i == 1)
+                        
+
+                        if (! ok )
                         {
                             foundPtr = i;
                             Console.WriteLine("Match found at " + foundAt.ToString());
                             Console.WriteLine("Seek pattern at " + foundPtr.ToString());
                             
                             Console.WriteLine("Checking matches ...");
-                            ok = true;
+                          
                             Console.WriteLine("at Base Text");
                             
                             for (int j = 0; j < patternSz; j++)
                             {
-                                Console.Write(src[foundAt/2 + j] + " ");
+                                if (foundAt / 2 + j < src.Length)
+                                    Console.Write(src[foundAt/2 + j] + " ");
                             }
 
                             Console.WriteLine("");
@@ -83,28 +86,19 @@ namespace Cacher
                             
                             for (int j = 0; j < patternSz; j++)
                             {
-                                Console.Write(dst[foundPtr/2 + j] + " ");
+                                if(foundPtr / 2 + j < dst.Length)
+                                    Console.Write(dst[foundPtr/2 + j] + " ");
                             }
                             Console.WriteLine("");
                         }
+                        ok = true;
                     }
                 }
             }
             if(!ok) Console.WriteLine("No matches found!");
             Console.WriteLine("string matching time: " + (DateTime.Now - st).TotalMilliseconds.ToString() + " ms");
 
-            //if (ok)
-            //{
-                
-
-               
-
-
-          
-                
-            //}
-
-
+         
             File.WriteAllText(outFile, sBase);
 
             File.WriteAllText(outFile +".Q", sQry);

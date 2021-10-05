@@ -1,8 +1,9 @@
 {
   "profiles": {
-    "Cacher": {
-      "commandName": "Project",
-      "commandLineArgs": "cats.txt test.txt  out.txt"
+    "test": {
+      "commandName": "Executable",
+      "executablePath": "D:\\bami\\projects\\TextMatching\\matcher\\bin\\Debug\\netcoreapp3.1\\Matcher.exe",
+      "commandLineArgs": "test.txt check.txt out.txt"
     }
   }
 }
