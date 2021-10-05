@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Cacher": {
+      "commandName": "Project",
+      "commandLineArgs": "cats.txt test.txt  out.txt"
+    }
+  }
+}
